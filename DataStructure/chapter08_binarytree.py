@@ -1,41 +1,25 @@
+# 이진 탐색 트리
+
+# 데이터 크기를 기준으로 일정형태로 구성
+# 이진 탐색 트리는 이진 트리의 일종이지만, 완전 이진 트리는 아니다.
+# 특징
+# 1. 왼쪽 서브 트리는 루트보다 모두 작은 값을 가진다.
+# 2. 오른쪽 서브 트리는 루트보다 모두 큰 값을 가진다.
+# 3. 각 서브 트리도 1,2번을 만족한다.
+# 4. 모든 노드 값은 중복되지 않는다. 즉, 중복된 값은 이진 탐색 트리에 저장할 수 없다.
+
+
+# Treenode class 생성.
 class Treenode:
-    def __init__(self):
+    def __init__(self, data):
         self.left = None
-        self.data = None
+        self.data = data
         self.right = None
 
 
-node1 = Treenode()
-node1.data = "화사"
-
-node2 = Treenode()
-node2.data = "솔라"
-node1.left = node2
-
-node3 = Treenode()
-node3.data = "문별" 
-node1.right = node3
-
-node4 = Treenode()
-node4.data = "휘인"
-node2.left = node4
-
-node5 = Treenode()
-node5.data = "쯔위"
-node2.right = node5
-
-node6 = Treenode()
-node5.data = "선미"
-node3.left = node6
-
-print(node1.data)
-print(node1.left.data)
+data_array = ["블랙핑크", "레드벨벳", "마마무", "에이핑크", "걸스데이", "트와이스"]
 
 
-# 이진 트리 순회 구현
-
-
-# 1. 전위 순회 preorder traversal
 def preorder(node):
     if node == None:
         return
@@ -44,33 +28,28 @@ def preorder(node):
     preorder(node.right)
 
 
-# 2. 중위 순회 inorder traversal
-def inorder(node):
-    if node == None:
-        return
-    inorder(node.left)
-    print(node.data, end="->")
-    inorder(node.right)
+node = Treenode(data_array[0])
+root = node
 
 
-# 3. 후위 순회 postorder traversal
-def postorder(node):
-    if node == None:
-        return
-    postorder(node.left)
-    postorder(node.right)
-    print(node.data, end="->")
+for i in data_array[1:]:
+    node = Treenode(i)
+    # print(node.data) data가 들어갔는 지 판단.
 
+    current = root
+    # print(current.data) 루트에 데이터가 잘 들어있는 지 판단.
+    while True:
+        if node.data < current.data:
+            if current.left == None:
+                current.left = node
+                break
+            current = current.left
+        else:
+            if current.right == None:
+                current.right = node
+                break
+            current = current.right
 
-if __name__ == "__main__":
-    print("전위 순회:", end=" ")
-    preorder(node1)
-    print("끝")
-
-    print("중위 순회:", end=" ")
-    inorder(node1)
-    print("끝")
-
-    print("후위 순회:", end=" ")
-    postorder(node1)
-    print("끝")
+print("전위 순회:", end=" ")
+preorder(root)
+print("끝")
