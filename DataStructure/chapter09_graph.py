@@ -76,3 +76,40 @@ while len(stack) != 0:
 print("방문 순서 -->", end=" ")
 for i in visit_array:
     print(data_array[i], end=" ")
+
+
+def find_vertex(g, find_vertex):
+    stack = []
+    visit_array = []
+
+    current = 0
+    stack.append(current)
+    visit_array.append(current)
+
+    while len(stack) != 0:
+        next = None
+        for vertex in range(g.size):
+            if g.graph[current][vertex] == 1:
+                if vertex in visit_array:  # 이미 방문한 vertex이면 pass한다.
+                    pass
+                else:
+                    next = vertex  # 방문한 적이 없는 vertext이면 next에 넣는다.
+                    break
+        if next is not None:  # 다음에 방문할 vertex가 있을 경우 현재 vertex를 current 변수에 저장한다.
+            current = vertex
+            stack.append(current)
+            visit_array.append(current)
+        else:
+            current = stack.pop()  # 다음에 방문할 정점이 없는 경우
+
+    if find_vertex in visit_array:
+        return True
+    else:
+        return False
+
+
+if find_vertex(g1, "화사"):
+    print("화사가 연락이 됨.")
+
+else:
+    print("화사가 연락이 안됨.")
